@@ -10,7 +10,7 @@ import java.util.List;
 public interface ChatMessageRepository extends JpaRepository<ChatMessage, Long> {
 
     @Query("SELECT cm from ChatMessage cm WHERE cm.type = 'PRIVATE_MESSAGE' AND " +
-            "((cm.sender = :user1 AND cm.recepient = :user2) OR (cm.sender = :user2 AND cm.recepient = :user1))" +
+            "((cm.sender = :user1 AND cm.recipient = :user2) OR (cm.sender = :user2 AND cm.recipient = :user1))" +
             "ORDER BY cm.timeStamp ASC")
     public List<ChatMessage> findPrivateMessagesBetweenTwoUsers(@Param("username") String user1, @Param("username") String user2);
 }

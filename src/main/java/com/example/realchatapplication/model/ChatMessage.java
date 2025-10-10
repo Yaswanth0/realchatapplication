@@ -18,7 +18,7 @@ public class ChatMessage {
 
     private String sender;
 
-    private String recepient;
+    private String recipient;
 
     private String color;
 

@@ -66,7 +66,7 @@ public class ChatController {
 
     @MessageMapping("/chat.sendPrivateMessage")
     public void sendPrivateMessage(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
-        if(userService.userExists(chatMessage.getSender()) && userService.userExists(chatMessage.getRecepient())){
+        if(userService.userExists(chatMessage.getSender()) && userService.userExists(chatMessage.getRecipient())){
 
             if(chatMessage.getTimeStamp() == null){
                 chatMessage.setTimeStamp(LocalDateTime.now());
@@ -82,20 +82,20 @@ public class ChatController {
             System.out.println("Message saved successfully with Id " + savedMessage.getId());
 
             try{
-                String recepientDestination = "/user/" + chatMessage.getRecepient() + "/queue/private";
-                System.out.println("Sending message to recepient destination " + recepientDestination);
-                messagingTemplate.convertAndSend(recepientDestination, savedMessage);
+                String recipientDestination = "/user/" + chatMessage.getRecipient() + "/queue/private";
+                System.out.println("Sending message to recipient destination " + recipientDestination);
+                messagingTemplate.convertAndSend(recipientDestination, savedMessage);
 
                 String senderDestination = "/user/" + chatMessage.getSender() + "/queue/private";
                 System.out.println("Sending message to sender destination " + senderDestination);
                 messagingTemplate.convertAndSend(senderDestination, savedMessage);
             } catch (Exception e) {
-                System.out.println("ERROR occured while sending the message " + e.getMessage());
+                System.out.println("ERROR occurred while sending the message " + e.getMessage());
                 e.printStackTrace();
             }
         }
         else {
-            System.out.println("ERROR: Sender " + chatMessage.getSender() + " or recepient " + chatMessage.getRecepient() + " does not exist");
+            System.out.println("ERROR: Sender " + chatMessage.getSender() + " or recipient " + chatMessage.getRecipient() + " does not exist");
         }
     }
 }
