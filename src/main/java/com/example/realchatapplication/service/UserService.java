@@ -1,16 +1,18 @@
 package com.example.realchatapplication.service;
 
+import com.example.realchatapplication.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class UserService {
-    public boolean userExists (String userName) {
-        System.out.println("UserName: " + userName);
-        return false;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    public boolean userExists (String username) {
+        return userRepository.existsByUsername(username);
     }
 
-    public void setUserOnlineStatus(String userName, boolean isOnline){
-        if(isOnline){
-            System.out.println("user: " + userName + " status updated to online");
-        } else {
-            System.out.println("user: " + userName + " status updated to offline");
-        }
+    public void setUserOnlineStatus(String username, boolean isOnline){
+        userRepository.updateUserOnlineStatus(username, isOnline);
     }
 }

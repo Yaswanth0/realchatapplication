@@ -76,6 +76,8 @@ public class ChatController {
                 chatMessage.setContent("");
             }
 
+            chatMessage.setType(ChatMessage.MessageType.PRIVATE_MESSAGE);
+
             ChatMessage savedMessage = chatMessageRepository.save(chatMessage);
             System.out.println("Message saved successfully with Id " + savedMessage.getId());
 
